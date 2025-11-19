@@ -1,7 +1,6 @@
 import { createContext, useReducer } from "react"
 import axios from 'axios'
 import AppReducer from './AppReducer'
-const URL_BE = "https://api-my-unsplash.herokuapp.com"
 
 const init = { 
     images: [],
@@ -41,7 +40,7 @@ export const GlobalProvider =({ children })=>{
 
     async function handleGetAll(){
         try {
-            const result = await axios.get(`${URL_BE}/image`)
+            const result = await axios.get(`${import.meta.env.VITE_URL_BE}/todos`)
             const images = await result.data
         //console.log(images)
             dispatch({
@@ -66,23 +65,25 @@ export const GlobalProvider =({ children })=>{
         }
         
         try {
-            const result = await axios.post(`${URL_BE}/image`, newImage, config)
+            const result = await axios.post(`${import.meta.env.VITE_URL_BE}/todos`, newImage, config)
+            console.log(result, 'dela');
+            
             dispatch({
                 type: 'ADD_IMAGE',
-                payload: result.data.data
+                payload: result?.data?.data
             })
         } catch (error) {
-            let err = error.response.data
+            let err = error?.response?.data
             dispatch({
                 type: 'IMAGE_ERROR',
-                payload: err.message
+                payload: err?.message
             })   
         }
     }
 
     async function handleSearchImage(keyword) {
         try {
-            const result = await axios.get(`${URL_BE}/image?search=${keyword}`)
+            const result = await axios.get(`${import.meta.env.VITE_URL_BE}/todos?search=${keyword}`)
             const images = result.data
             // console.log(images.data)
             dispatch({
@@ -102,7 +103,7 @@ export const GlobalProvider =({ children })=>{
     async function handleDeleteImage(id, password) {
         //console.log(id, password)
         try {
-            await axios.delete(`${URL_BE}/image/${id}`, { data: { password },
+            await axios.delete(`${import.meta.env.VITE_URL_BE}/todos/${id}`, { data: { password },
                 headers: {
                     'Content-Type': 'application/json'
                 }
