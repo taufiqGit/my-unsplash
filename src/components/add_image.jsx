@@ -8,8 +8,8 @@ export default function AddImage({ setShowAdd }) {
     const [label, setLabel] = useState('')
     const [url, setUrl] = useState('')
 
-    const AddImage =()=>{
-        let data = { label, image_url: url }
+    const AddImage = () => {
+        let data = { title: label, image_url: url }
         handleAddImage(data)
         handleShowAdd(false)
     }
@@ -21,11 +21,11 @@ export default function AddImage({ setShowAdd }) {
                 <h2>Add a new photo</h2>
                 <div className={style.form_input}>
                     <label htmlFor="label">Label</label>
-                    <input onChange={(e)=> setLabel(e.target.value)} type="text" placeholder="label" id="label" />
+                    <input onChange={(e) => setLabel(e.target.value)} type="text" placeholder="label" id="label" />
                 </div>
                 <div className={style.form_input}>
                     <label htmlFor="url">Photo URL</label>
-                    <input onChange={(e)=> setUrl(e.target.value)} type="url" placeholder="image url" id="url"/>
+                    <input onChange={(e) => setUrl(e.target.value)} type="url" placeholder="image url" id="url" />
                 </div>
                 <div className={style.wrap_btn}>
                     <button onClick={() => handleShowAdd(false)} className={style.btn_cancel}>Cancel</button>
